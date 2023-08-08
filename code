@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+public class ToDoList {
+    private static final int MAX_ITEMS = 10;
+    private static String[] todoItems = new String[MAX_ITEMS];
+    private static int itemCount = 0;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("ToDo List Menu:");
+            System.out.println("1. Add Task");
+            System.out.println("2. Display Tasks");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    if (itemCount < MAX_ITEMS) {
+                        System.out.print("Enter task: ");
+                        String task = scanner.nextLine();
+                        addTask(task);
+                        System.out.println("Task added.");
+                    } else {
+                        System.out.println("ToDo List is full.");
+                    }
+                    break;
+                case 2:
+                    displayTasks();
+                    break;
+              
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } while (choice != 3);
+
+        scanner.close();
+    }
+
+    private static void addTask(String task) {
+        if (itemCount < MAX_ITEMS) {
+            todoItems[itemCount] = task;
+            itemCount++;
+        }
+    }
+
+    private static void displayTasks() {
+        if (itemCount == 0) {
+            System.out.println("ToDo List is empty.");
+            return;
+        }
+
+        System.out.println("ToDo List:");
+        for (int i = 0; i < itemCount; i++) {
+            System.out.println((i + 1) + ". " + todoItems[i]);
+        }
+    }
+}
